@@ -1,0 +1,77 @@
+state_code,municipio_code,region,state_name,state_abbr,municipio_name,long,lat
+9,2,9002,Ciudad de México,CDMX,Azcapotzalco,-99.184361,19.484103
+9,3,9003,Ciudad de México,CDMX,Coyoacán,-99.162146,19.350214
+9,4,9004,Ciudad de México,CDMX,Cuajimalpa de Morelos,-99.299792,19.35735
+9,5,9005,Ciudad de México,CDMX,Gustavo A. Madero,-99.113471,19.482945
+9,6,9006,Ciudad de México,CDMX,Iztacalco,-99.097613,19.395901
+9,7,9007,Ciudad de México,CDMX,Iztapalapa,-99.092623,19.359004
+9,8,9008,Ciudad de México,CDMX,La Magdalena Contreras,-99.241516,19.304898
+9,9,9009,Ciudad de México,CDMX,Milpa Alta,-99.023372,19.191249
+9,10,9010,Ciudad de México,CDMX,Álvaro Obregón,-99.195413,19.390806
+9,11,9011,Ciudad de México,CDMX,Tláhuac,-99.004846,19.270566
+9,12,9012,Ciudad de México,CDMX,Tlalpan,-99.167126,19.288275
+9,13,9013,Ciudad de México,CDMX,Xochimilco,-99.104913,19.263462
+9,14,9014,Ciudad de México,CDMX,Benito Juárez,-99.157853,19.371992
+9,15,9015,Ciudad de México,CDMX,Cuauhtémoc,-99.151884,19.441647
+9,16,9016,Ciudad de México,CDMX,Miguel Hidalgo,-99.190754,19.407269
+9,17,9017,Ciudad de México,CDMX,Venustiano Carranza,-99.113701,19.419262
+13,69,13069,Hidalgo,HGO,Tizayuca,-98.981584,19.841089
+15,2,15002,México,MEX,Acolman,-98.911906,19.635509
+15,9,15009,México,MEX,Amecameca,-98.769811,19.128685
+15,10,15010,México,MEX,Apaxco,-99.174163,19.975325
+15,11,15011,México,MEX,Atenco,-98.913348,19.559339
+15,13,15013,México,MEX,Atizapán de Zaragoza,-99.235041,19.543171
+15,15,15015,México,MEX,Atlautla,-98.782666,19.030861
+15,16,15016,México,MEX,Axapusco,-98.75833,19.724458
+15,17,15017,México,MEX,Ayapango,-98.802506,19.127221
+15,20,15020,México,MEX,Coacalco de Berriozábal,-99.104377,19.629299
+15,22,15022,México,MEX,Cocotitlán,-98.861952,19.230856
+15,23,15023,México,MEX,Coyotepec,-99.20798,19.775508
+15,24,15024,México,MEX,Cuautitlán,-99.17863,19.665061
+15,25,15025,México,MEX,Chalco,-98.895655,19.261132
+15,28,15028,México,MEX,Chiautla,-98.881349,19.548652
+15,29,15029,México,MEX,Chicoloapan,-98.902012,19.416765
+15,30,15030,México,MEX,Chiconcuac,-98.895307,19.552722
+15,31,15031,México,MEX,Chimalhuacán,-98.945299,19.416908
+15,33,15033,México,MEX,Ecatepec de Morelos,-99.049159,19.599069
+15,34,15034,México,MEX,Ecatzingo,-98.752598,18.958715
+15,35,15035,México,MEX,Huehuetoca,-99.204138,19.833622
+15,36,15036,México,MEX,Hueypoxtla,-99.07837,19.907039
+15,37,15037,México,MEX,Huixquilucan,-99.351692,19.36018
+15,38,15038,México,MEX,Isidro Fabela,-99.41738,19.555591
+15,39,15039,México,MEX,Ixtapaluca,-98.884247,19.313104
+15,44,15044,México,MEX,Jaltenco,-99.094031,19.752221
+15,46,15046,México,MEX,Jilotzingo,-99.397135,19.538918
+15,50,15050,México,MEX,Juchitepec,-98.880916,19.101912
+15,53,15053,México,MEX,Melchor Ocampo,-99.143458,19.710414
+15,57,15057,México,MEX,Naucalpan de Juárez,-99.233218,19.478803
+15,58,15058,México,MEX,Nezahualcóyotl,-99.0182,19.408763
+15,59,15059,México,MEX,Nextlalpan,-99.080338,19.739866
+15,60,15060,México,MEX,Nicolás Romero,-99.315898,19.625715
+15,61,15061,México,MEX,Nopaltepec,-98.709587,19.778769
+15,65,15065,México,MEX,Otumba,-98.757694,19.699854
+15,68,15068,México,MEX,Ozumba,-98.795389,19.039177
+15,69,15069,México,MEX,Papalotla,-98.858209,19.563378
+15,70,15070,México,MEX,La Paz,-98.976602,19.358387
+15,75,15075,México,MEX,San Martín de las Pirámides,-98.834524,19.704843
+15,81,15081,México,MEX,Tecámac,-98.967143,19.710207
+15,83,15083,México,MEX,Temamatla,-98.869902,19.202741
+15,84,15084,México,MEX,Temascalapa,-98.900891,19.827787
+15,89,15089,México,MEX,Tenango del Aire,-98.861296,19.157003
+15,91,15091,México,MEX,Teoloyucan,-99.183032,19.745394
+15,92,15092,México,MEX,Teotihuacán,-98.868628,19.685479
+15,93,15093,México,MEX,Tepetlaoxtoc,-98.819719,19.573365
+15,94,15094,México,MEX,Tepetlixpa,-98.819708,19.029515
+15,95,15095,México,MEX,Tepotzotlán,-99.223514,19.713778
+15,96,15096,México,MEX,Tequixquiac,-99.148913,19.910277
+15,99,15099,México,MEX,Texcoco,-98.881484,19.51344
+15,100,15100,México,MEX,Tezoyuca,-98.908504,19.590313
+15,103,15103,México,MEX,Tlalmanalco,-98.802554,19.205903
+15,104,15104,México,MEX,Tlalnepantla de Baz,-99.195198,19.538523
+15,108,15108,México,MEX,Tultepec,-99.128605,19.685548
+15,109,15109,México,MEX,Tultitlán,-99.169195,19.647513
+15,112,15112,México,MEX,Villa del Carbón,-99.46308,19.727588
+15,120,15120,México,MEX,Zumpango,-99.100634,19.797123
+15,121,15121,México,MEX,Cuautitlán Izcalli,-99.209286,19.656996
+15,122,15122,México,MEX,Valle de Chalco Solidaridad,-98.943449,19.278765
+15,125,15125,México,MEX,Tonanitla,-99.054362,19.688162
