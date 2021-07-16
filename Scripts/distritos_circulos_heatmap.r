@@ -10,15 +10,16 @@ library("dplyr") #Paquete para filtrar datos de dataframes
 library("fontawesome") #Paquete para íconos de marcadores
 library("htmlwidgets") #Paquete para salvar mapa en html
 library("leaflet.extras") #Paquete para poder buscar en los mapas
-library("sf")
+#library("sf")
 library("raster")
 library("geojsonsf")
-library('geojsonio')
+#library('geojsonio')
 library("spdplyr")
 library("tidyverse")
+library("Rcpp")
 library("DBI")
 library('RPostgres')
-setwd(paste0("C:/Users/DELL/OneDrive/CodeLibrary/R/ZMVM_Urbanizacion/")) 
+setwd(paste0("C:/Users/DELL/OneDrive/CodeLibrary/R/ZMVM_Urbanizacion_Keys/")) 
 ###############################################################################
 # SQl database
 
@@ -34,7 +35,7 @@ con <- dbConnect(Postgres(), dbname = db, host=host_db, port=db_port, user=db_us
 grupo_d="Límite distrito"
 grupos<-c()
 
-ubicacion_dist <- paste0("C:/Users/DELL/OneDrive/CodeLibrary/R/ZMVM_Urbanizacion/DistritosEODHogaresZMVM2017/DistritosEODHogaresZMVM2017.shp") 
+ubicacion_dist <- paste0("C:/Users/DELL/OneDrive/CodeLibrary/R/ZMVM_Urbanizacion_Datos/DistritosEODHogaresZMVM2017/DistritosEODHogaresZMVM2017.shp") 
 dist_todos <- readOGR(ubicacion_dist, layer = paste0("DistritosEODHogaresZMVM2017"), verbose = FALSE, GDAL1_integer64_policy=TRUE) 
 dist_todos <- spTransform(dist_todos,CRS("+proj=longlat +ellps=WGS84 +no_defs"))
 
@@ -125,7 +126,7 @@ for(i in 1:length(distritos_mex)){
 # Get data, create empty map and groups list
 
 
-ubicacion_datos <- paste0("C:/Users/DELL/OneDrive/CodeLibrary/R/ZMVM_Urbanizacion/ZMVM_municipios.csv") 
+ubicacion_datos <- paste0("C:/Users/DELL/OneDrive/CodeLibrary/R/ZMVM_Urbanizacion:Datos/ZMVM_municipios.csv") 
 datos <- ubicacion_datos %>% read.csv(header = TRUE) 
 datos <- datos %>% lapply(as.character) %>% as.data.frame(stringsAsFactors = FALSE)
 mex_data <- subset(datos, state_abbr=="MEX")
@@ -134,7 +135,7 @@ mex_data <- subset(datos, state_abbr=="MEX")
 dist_todos_mex <- subset(dist_todos, dist_todos$Distrito %in% distritos_mex)
 
 
-ubicacion_zh_mex_todos <- paste0("C:/Users/DELL/OneDrive/CodeLibrary/R/ZMVM_Urbanizacion/igecemTipologiaahA2015Cg/igecemTipologiaahA2015Cg.shp") #Ubicación del archivo shapefile 
+ubicacion_zh_mex_todos <- paste0("C:/Users/DELL/OneDrive/CodeLibrary/R/ZMVM_Urbanizacion_Datos/igecemTipologiaahA2015Cg/igecemTipologiaahA2015Cg.shp") #Ubicación del archivo shapefile 
 zh_mex_todos <- ubicacion_zh_mex_todos %>% readOGR(layer = paste0("igecemTipologiaahA2015Cg"), verbose = FALSE, GDAL1_integer64_policy=TRUE) #Leer shapefile
 zh_mex_todos <- zh_mex_todos %>% spTransform(CRS("+proj=longlat +ellps=WGS84 +no_defs"))
 zh_mex_todos <- subset(zh_mex_todos,zh_mex_todos$cveinegi %in% mex_data$region)
@@ -236,7 +237,7 @@ map <- map %>%
                 color='grey',
                 opacity=1,
                 smoothFactor = 0.5,
-                weight = 4,
+                weight = 1,
                 fillColor = "#26b8e8",
                 fillOpacity = 0,
                 group = grupo_d,
