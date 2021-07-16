@@ -10,25 +10,25 @@ library("dplyr") #Paquete para filtrar datos de dataframes
 library("fontawesome") #Paquete para íconos de marcadores
 library("htmlwidgets") #Paquete para salvar mapa en html
 library("leaflet.extras") #Paquete para poder buscar en los mapas
-#library("sf")
+library("sf")
 library("raster")
 library("geojsonsf")
-#library('geojsonio')
+library('geojsonio')
 library("spdplyr")
 library("tidyverse")
-library("Rcpp")
 library("DBI")
 library('RPostgres')
 setwd(paste0("C:/Users/DELL/OneDrive/CodeLibrary/R/ZMVM_Urbanizacion_Keys/")) 
 ###############################################################################
 # SQl database
 
-db <- 'ZMVM_Urbanizacion'
-host_db <- 'localhost'  
-db_port <- '5432'
-db_user <- 'postgres' 
 db_key <- readLines('./database_key.txt')
-con <- dbConnect(Postgres(), dbname = db, host=host_db, port=db_port, user=db_user, password=db_key)
+con <- DBI::dbConnect(Postgres(), 
+                      dbname = "ZMVM_Urbanizacion",
+                      host = "localhost", 
+                      port = 5432,
+                      user = "postgres", 
+                      password = db_key)
 
 ###############################################################################
 # Initiate map, get data, create empty map and groups list
@@ -86,18 +86,18 @@ for(distrito_str in distritos_cdmx){
 
     trabajo_data <- subset(datos, uso_suelo %in% c("Industrial","Industrial y comercial","Equipamiento"))
     ####
-    dist_todos_cdmx$area_trabajo[i] <- 0
-    #dist_todos_cdmx$area_trabajo[i] <- sum(trabajo_data$area)/1000**2+area_mixto
+    #dist_todos_cdmx$area_trabajo[i] <- 0
+    dist_todos_cdmx$area_trabajo[i] <- sum(trabajo_data$area)/1000**2+area_mixto
     ####
     dist_todos_cdmx$radius_trabajo[i] <- sqrt((dist_todos_cdmx$area_trabajo[i]*1000**2)/pi)
 
     residencia_data <- subset(datos, uso_suelo=="Habitacional")
     ####
-    dist_todos_cdmx$area_residencia[i] <- sum(residencia_data$area)/1000**2+area_mixto
-    #dist_todos_cdmx$area_residencia[i] <- 0
+    #dist_todos_cdmx$area_residencia[i] <- sum(residencia_data$area)/1000**2+area_mixto
+    dist_todos_cdmx$area_residencia[i] <- 0
     ####
-    dist_todos_cdmx$radius_residencia[i] <- sqrt(((dist_todos_cdmx$area_residencia[i]+dist_todos_cdmx$area_trabajo[i])*1000**2)/pi)
-    #dist_todos_cdmx$radius_residencia[i] <- 0
+    #dist_todos_cdmx$radius_residencia[i] <- sqrt(((dist_todos_cdmx$area_residencia[i]+dist_todos_cdmx$area_trabajo[i])*1000**2)/pi)
+    dist_todos_cdmx$radius_residencia[i] <- 0
     ####
     
     dist_todos_cdmx$densidad_residentes[i]<-dist_todos_cdmx$dist_residentes[i]/dist_todos_cdmx$area_dist[i]
@@ -126,7 +126,7 @@ for(i in 1:length(distritos_mex)){
 # Get data, create empty map and groups list
 
 
-ubicacion_datos <- paste0("C:/Users/DELL/OneDrive/CodeLibrary/R/ZMVM_Urbanizacion:Datos/ZMVM_municipios.csv") 
+ubicacion_datos <- paste0("C:/Users/DELL/OneDrive/CodeLibrary/R/ZMVM_Urbanizacion_Datos/ZMVM_municipios.csv") 
 datos <- ubicacion_datos %>% read.csv(header = TRUE) 
 datos <- datos %>% lapply(as.character) %>% as.data.frame(stringsAsFactors = FALSE)
 mex_data <- subset(datos, state_abbr=="MEX")
@@ -183,18 +183,18 @@ for(distrito_str in distritos_mex){
 
     trabajo_data <- subset(zh_dist@data, tipologia %in% c("Industrial","Comercial","Equipamiento"))
     ####
-    dist_todos_mex$area_trabajo[i] <- 0
-    #dist_todos_mex$area_trabajo[i] <- sum(trabajo_data$area)/1000**2
+    #dist_todos_mex$area_trabajo[i] <- 0
+    dist_todos_mex$area_trabajo[i] <- sum(trabajo_data$area)/1000**2
     ####
     dist_todos_mex$radius_trabajo[i] <- sqrt((dist_todos_mex$area_trabajo[i]*1000**2)/pi)
 
     residencia_data <- subset(zh_dist@data, tipologia=="Habitacional")
     ####
-    dist_todos_mex$area_residencia[i] <- sum(residencia_data$area)/1000**2
-    #dist_todos_mex$area_residencia[i] <- 0
+    #dist_todos_mex$area_residencia[i] <- sum(residencia_data$area)/1000**2
+    dist_todos_mex$area_residencia[i] <- 0
     ####
-    dist_todos_mex$radius_residencia[i] <- sqrt(((dist_todos_mex$area_residencia[i]+dist_todos_mex$area_trabajo[i])*1000**2)/pi)
-    #dist_todos_mex$radius_residencia[i] <- 0
+    #dist_todos_mex$radius_residencia[i] <- sqrt(((dist_todos_mex$area_residencia[i]+dist_todos_mex$area_trabajo[i])*1000**2)/pi)
+    dist_todos_mex$radius_residencia[i] <- 0
     ####
 
     dist_todos_mex$densidad_residentes[i]<-dist_todos_mex$dist_residentes[i]/dist_todos_mex$area_dist[i]
@@ -205,6 +205,7 @@ for(distrito_str in distritos_mex){
 # COLORES
 
 dist_todos <- rbind(dist_todos_cdmx, dist_todos_mex)
+dist_todos@data$Descripcio <- iconv(dist_todos@data$Descripcio, from="UTF-8", to="LATIN1")
 dist_todos <- dist_todos %>% filter_all(all_vars(!is.na(.)))
 escala <- log2(c(0,0,0.125,0.25,0.375,0.5,0.625,0.75,0.875,1)+1)
 
@@ -242,7 +243,8 @@ map <- map %>%
                 fillOpacity = 0,
                 group = grupo_d,
                 popup = ~paste(
-                    '<br><b>Clave distrito: </b>', paste(Distrito),
+                    '<br><b>', paste(Descripcio),
+                    '<br><br><b>Clave distrito: </b>', paste(Distrito),
                     '<br><br><b>Estado: </b>', paste(Estado)
                 ))
 
@@ -262,7 +264,8 @@ addCircles(data=dist_todos,
         group = grupo,
         fillOpacity = 1,
         popup = ~paste(
-            '<br><b>Distrito: </b>', paste(Distrito),
+            '<br><b>', paste(Descripcio),
+            '<br><br><b>Distrito: </b>', paste(Distrito),
             '<br><br><b>Estado: </b>', paste(Estado),
             '<br><br><b>Uso de suelo: </b>', paste(grupo),
             '<br><br><b>Porcentaje del suelo del distrito: </b>', paste0(round((area_residencia/area_dist)*100,2),'%'),
@@ -284,7 +287,8 @@ addCircles(data=dist_todos,
         group = grupo,
         fillOpacity = 1,
         popup = ~paste(
-            '<br><b>Distrito: </b>', paste(Distrito),
+            '<br><b>', paste(Descripcio),
+            '<br><br><b>Distrito: </b>', paste(Distrito),
             '<br><br><b>Estado: </b>', paste(Estado),
             '<br><br><b>Uso de suelo: </b>', paste(grupo),
             '<br><br><b>Porcentaje del suelo del distrito: </b>', paste0(round((area_trabajo/area_dist)*100,2),'%'),
@@ -294,6 +298,7 @@ addCircles(data=dist_todos,
 ################################################################################
 
 map <- addTiles(map)
+map <-map %>% addProviderTiles(providers$CartoDB.Positron)
 map <- map %>% addLayersControl( #Agrega control sobre visulización de Oxxos en el mapa
     overlayGroups = grupo_d,
     options = layersControlOptions(collapsed = TRUE)
